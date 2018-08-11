@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <context:annotation-config />
+
+    <bean id="msyqlDb"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver"></property>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/redis_monitor"></property>
+        <property name="username" value="test"></property>
+        <property name="password" value="test"></property>
+    </bean>
+
+    <bean id="msyqlJdbcTemplate"
+          class="org.springframework.jdbc.core.JdbcTemplate" abstract="false"
+          lazy-init="false" autowire="default" dependency-check="default">
+        <property name="dataSource">
+            <ref bean="msyqlDb" />
+        </property>
+    </bean>
+
+    <bean id="mysqlUitl" class="com.lzz.util.MysqlUtil">
+        <property name="jdbcTpl">
+            <ref bean="msyqlJdbcTemplate" />
+        </property>
+    </bean>
+
+</beans>

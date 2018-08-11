@@ -1,0 +1,1 @@
+<pre style='background-color:#4c4b4b !important;color:#fff;height:440px;border:0px;border-radius:0px'>{{$result}}</pre>
